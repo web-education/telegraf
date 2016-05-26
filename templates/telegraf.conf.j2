@@ -90,10 +90,9 @@
 #                                  PLUGINS                                    #
 ###############################################################################
 
-{% for plugin in telegraf_plugins_enabled %}
+{% for plugin in telegraf_plugins %}
 [[inputs.{{ plugin }}]]
-{% if telegraf_plugin_settings.get(plugin) != None %}
-{% for key, value in telegraf_plugin_settings.get(plugin).iteritems() %}
+{% for key, value in plugin.iteritems() %}
 {% if value is mapping  %}
   [[plugins.{{ plugin }}.{{ key }}]]
 {% for key, value in value.iteritems() %}
@@ -123,7 +122,6 @@
 {% endif %}
 {% endif %}
 {% endfor %}
-{% endif %}
 
 {% endfor %}
 
